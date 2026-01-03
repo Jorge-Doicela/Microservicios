@@ -1,1 +1,1 @@
-module.exports = f => (req, res, next) => Promise.resolve(f(req, res, next)).catch(next);
+module.exports = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
