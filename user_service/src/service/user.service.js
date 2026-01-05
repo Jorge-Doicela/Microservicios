@@ -1,4 +1,4 @@
-const repositorio = require('../repositories/user.repository');
+const repositorio = require('../repository/user.repository');
 
 const validarUsuario = (usuario, esCreacion = true) => {
     if ((esCreacion || usuario.nombre) && (!usuario.nombre || usuario.nombre.length < 3)) throw new Error("Nombre corto");

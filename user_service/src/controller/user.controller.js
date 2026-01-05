@@ -1,5 +1,5 @@
-const servicio = require('../services/user.service');
-const manejarError = require('../utils/catchasync');
+const servicio = require('../service/user.service');
+const manejarError = require('../util/catchasync');
 
 exports.obtenerUsuarios = manejarError(async (req, res) => res.json(await servicio.obtenerTodos()));
 

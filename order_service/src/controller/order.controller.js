@@ -1,5 +1,5 @@
-const servicio = require('../services/order.service');
-const manejarError = require('../utils/catchasync');
+const servicio = require('../service/order.service');
+const manejarError = require('../util/catchasync');
 
 exports.obtenerOrdenes = manejarError(async (req, res) => res.json(await servicio.obtenerTodos()));
 exports.obtenerOrdenPorId = manejarError(async (req, res) => {

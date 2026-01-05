@@ -1,4 +1,4 @@
-const repositorio = require('../repositories/order.repository');
+const repositorio = require('../repository/order.repository');
 
 const calcularTotal = (orden) => {
     if (!orden.detalles) return orden;

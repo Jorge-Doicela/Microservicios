@@ -1,4 +1,4 @@
-const repositorio = require('../repositories/product.repository');
+const repositorio = require('../repository/product.repository');
 
 const validarProducto = (producto, esActualizacion = false) => {
     if (esActualizacion && !producto.nombre && !producto.descripcion && producto.precio === undefined && producto.stock === undefined) return;
