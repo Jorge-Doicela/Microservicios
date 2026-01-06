@@ -1,3 +1,4 @@
+//user_service/src/service/user.service.js
 const repositorio = require('../repository/user.repository');
 
 const validarUsuario = (usuario, esCreacion = true) => {

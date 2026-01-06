@@ -1,3 +1,4 @@
+//product_service/app.js
 require('dotenv').config();
 require('./src/database/index.db');
 

@@ -1,3 +1,4 @@
+//product_service/src/service/product.service.js
 const repositorio = require('../repository/product.repository');
 
 const validarProducto = (producto, esActualizacion = false) => {

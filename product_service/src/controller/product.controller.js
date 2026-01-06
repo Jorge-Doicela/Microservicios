@@ -1,3 +1,4 @@
+//product_service/src/controller/product.controller.js
 const servicio = require('../service/product.service');
 const manejarError = require('../util/catchasync');
 

@@ -1,3 +1,4 @@
+//product_service/src/repository/product.repository.js
 const db = require("../database/index.db");
 
 exports.obtenerTodos = async () => (await db.query("SELECT * FROM productos")).rows;
