@@ -2,6 +2,7 @@ const repositorio = require('../repository/user.repository');
 
 const validarUsuario = (usuario, esCreacion = true) => {
     if ((esCreacion || usuario.nombre) && (!usuario.nombre || usuario.nombre.length < 3)) throw new Error("Nombre corto");
+    if ((esCreacion || usuario.nombre) && usuario.nombre.toLowerCase() === 'admin') throw new Error("Regla de Negocio: El nombre 'admin' está prohibido");
     if ((esCreacion || usuario.correo) && !/^\S+@\S+\.\S+$/.test(usuario.correo)) throw new Error("Email inválido");
     if ((esCreacion || usuario.cedula) && (!usuario.cedula || usuario.cedula.length < 8)) throw new Error("Cédula inválida");
 };

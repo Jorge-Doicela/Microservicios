@@ -4,6 +4,7 @@ const calcularTotal = (orden) => {
     if (!orden.detalles) return orden;
     orden.totalCalculado = orden.detalles.reduce((totalAcumulado, producto) => {
         if (!producto.cantidad || producto.cantidad <= 0) throw new Error("Cantidad inválida");
+        if (producto.cantidad > 10) throw new Error("Regla de Negocio: Máximo 10 unidades por producto");
         return totalAcumulado + (producto.cantidad * producto.precio);
     }, 0);
     return orden;
