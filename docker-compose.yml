@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:15-alpine
+    container_name: microservices_db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  user_service:
+    build: ./user_service
+    container_name: user_service
+    ports:
+      - "4001:4001"
+    environment:
+      - PGHOST=database
+      - PGDATABASE=db_users
+      - PGUSER=postgres
+      - PGPASSWORD=12345
+      - PGPORT=5432
+    depends_on:
+      database:
+        condition: service_healthy
+    restart: on-failure
+
+  product_service:
+    build: ./product_service
+    container_name: product_service
+    ports:
+      - "4002:4002"
+    environment:
+      - PGHOST=database
+      - PGDATABASE=db_products
+      - PGUSER=postgres
+      - PGPASSWORD=12345
+      - PGPORT=5432
+    depends_on:
+      database:
+        condition: service_healthy
+    restart: on-failure
+
+  order_service:
+    build: ./order_service
+    container_name: order_service
+    ports:
+      - "4003:4003"
+    environment:
+      - PGHOST=database
+      - PGDATABASE=db_orders
+      - PGUSER=postgres
+      - PGPASSWORD=12345
+      - PGPORT=5432
+      - USER_SERVICE_URL=http://user_service:4001
+      - PRODUCT_SERVICE_URL=http://product_service:4002
+    depends_on:
+      database:
+        condition: service_healthy
+    restart: on-failure

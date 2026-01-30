@@ -11,12 +11,18 @@ exports.obtenerOrdenPorId = manejarError(async (req, res) => {
 
 exports.crearOrden = manejarError(async (req, res) => {
     try {
-        const usuario = await (await fetch(`http://localhost:4001/api/user/${req.body.usuario_id}`)).json();
+        const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:4001';
+        const usuarioResponse = await fetch(`${userServiceUrl}/api/user/${req.body.usuario_id}`);
+        if (!usuarioResponse.ok) throw new Error("Usuario no encontrado en microservicio de usuarios");
+        const usuario = await usuarioResponse.json();
         if (!usuario) throw new Error("Usuario no existe");
     } catch (e) { throw new Error("Usuario no encontrado"); }
 
     try {
-        const producto = await (await fetch(`http://localhost:4002/api/product/${req.body.producto_id}`)).json();
+        const productServiceUrl = process.env.PRODUCT_SERVICE_URL || 'http://localhost:4002';
+        const productoResponse = await fetch(`${productServiceUrl}/api/product/${req.body.producto_id}`);
+        if (!productoResponse.ok) throw new Error("Producto no encontrado en microservicio de productos");
+        const producto = await productoResponse.json();
         if (!producto) throw new Error("Producto no existe");
     } catch (e) { throw new Error("Producto no encontrado"); }
 
